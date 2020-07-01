@@ -41,3 +41,9 @@
 	Example	: ./stop_container.sh ubuntu_laptop1
 	Example	: ./stop_container.sh ubuntu_laptop2
 
+## reset_docker.sh
+
+	Clear/Delete all images, containers etc
+
+	Syntax	: ./reset_docker.sh
+	Example	: ./reset_docker.sh
