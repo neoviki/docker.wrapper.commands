@@ -1,27 +1,19 @@
 echo
 if [ -z $1 ]; then
-    echo "[ usage ] dk_container_create <docker_image.diso> <container_name>"
+    echo "[ usage ] docker_container_create <docker_image.tar> <container_name>"
     echo
     exit 1
 fi
 
 if [ -z $2 ]; then
-    echo "[ usage ] dk_container_create <docker_image.diso> <container_name>"
+    echo "[ usage ] docker_container_create <docker_image.tar> <container_name>"
     echo
     exit 1
 fi
 
-DOCKER_ISO_NAME="$1"
+TAR_IMAGE_NAME="$1"
 CONTAINER_NAME="$2"
-IMAGE_NAME=`echo $DOCKER_ISO_NAME | awk -F. '{print $1}'`
-TAR_IMAGE_NAME="${IMAGE_NAME}.tar"
-
-if [ ! -f "$DOCKER_ISO_NAME" ]; then
-    echo "[ error ] Docker ISO Image File Missing ( $DOCKER_ISO_NAME )"
-    exit 1
-fi
-
-cp -rf $DOCKER_ISO_NAME $TAR_IMAGE_NAME
+IMAGE_NAME=`echo $TAR_IMAGE_NAME | awk -F. '{print $1}'`
 
 if [ ! -f "$TAR_IMAGE_NAME" ]; then
     echo "[ error ] Docker Image File Missing ($TAR_IMAGE_NAME)"
@@ -29,7 +21,7 @@ if [ ! -f "$TAR_IMAGE_NAME" ]; then
 fi
 
 if [[ -z "$IMAGE_NAME" ]]; then
-    echo "[ error ] Invalid Docker Image Name ($IMAGE_NAME)"
+    echo "[ error ] Invalid Docker Image Name ($TAR_IMAGE_NAME) -> ($IMAGE_NAME)"
     exit 1
 fi
 
@@ -41,7 +33,7 @@ docker container rm $CONTAINER_NAME &> /dev/null
 echo "[ status ] Remove Old Docker Image ( if any ) By Name -> $IMAGE_NAME"
 docker image rm  $IMAGE_NAME &> /dev/null 
 
-echo "[ status ] Load Docker Image ( $DOCKER_ISO_NAME  ) ( $TAR_IMAGE_NAME )"
+echo "[ status ] Load Docker Image From Tar File -> $TAR_IMAGE_NAME"
 docker load -i $TAR_IMAGE_NAME
 
 echo
@@ -50,11 +42,9 @@ docker create -t -i -v ~/docker_share:/home/share --name $CONTAINER_NAME $IMAGE_
 
 if [ $? -eq 0 ]; then
     echo "[ success ] docker container created successfully ( container_name = $CONTAINER_NAME )"
-    rm -rf $TAR_IMAGE_NAME
     exit 0
 else
     echo "[ error ] unable to create docker container ( container_name = $CONTAINER_NAME )"
-    rm -rf $TAR_IMAGE_NAME
     exit 1
 fi
 

@@ -1,37 +1,47 @@
 echo
 if [ -z $1 ]; then
-    echo "[ usage ] dk_container_import <container_appliance_name.tar> <container_name>"
+    echo "[ usage ] dk_container_import <container_appliance.dova> <container_name>"
     echo
     exit 1
 fi
 
 if [ -z $2 ]; then
-    echo "[ usage ] dk_container_import <container_appliance_name.tar> <container_name>"
+    echo "[ usage ] dk_container_import <container_appliance.dova> <container_name>"
     echo
     exit 1
 fi
 
-
 APPLIANCE_NAME="$1"
 CONTAINER_NAME="$2"
 IMAGE_NAME="image_${CONTAINER_NAME}"
+
+APPLIANCE_PREFIX=`echo $APPLIANCE_NAME | awk -F. '{print $1}'`
+APPLIANCE_TAR="${APPLIANCE_PREFIX}.tar"
+
 
 if [ ! -f "$APPLIANCE_NAME" ]; then
     echo "[ error ] Docker Container Appliance Missing ($APPLIANCE_NAME)"
     exit 1
 fi
 
+cp -rf $APPLIANCE_NAME $APPLIANCE_TAR
+
+if [ ! -f "$APPLIANCE_TAR" ]; then
+    echo "[ error ] Docker Container Appliance Tar Convertion Failed ($APPLIANCE_TAR)"
+    exit 1
+fi
+
+
 if [[ -z "$IMAGE_NAME" ]]; then
     echo "[ error ] Invalid Docker Image Name ( $IMAGE_NAME )"
     exit 1
 fi
 
-docker import - $IMAGE_NAME < $APPLIANCE_NAME
+docker import - $IMAGE_NAME < $APPLIANCE_TAR
 
 if [ $? -eq 0 ]; then
     echo "[ success ] docker appliance imported successfully ( $APPLIANCE_NAME )"
 	echo
-    exit 0
 else
     echo "[ error ] unable to import docker appliance ( appliance_name = $APPLIANCE_NAME )"
 	echo

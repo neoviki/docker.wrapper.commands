@@ -13,7 +13,7 @@ fi
 
 DOCKER_FILE="$1"
 DOCKER_IMAGE="$2"
-DOCKER_IMAGE_FILE="${DOCKER_IMAGE}.tar"
+DOCKER_IMAGE_FILE="${DOCKER_IMAGE}.diso"
 
 docker image rm  $DOCKER_IMAGE
 echo "[ status ] Building Custom Docker Image from ( $DOCKER_FILE )"
