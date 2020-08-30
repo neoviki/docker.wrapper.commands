@@ -43,7 +43,7 @@
 
 ## reset_docker.sh
 
-	Clear/Delete all images, containers etc
+	Clear/Delete all images, containers and volumes
 
-	Syntax	: ./reset_docker.sh
-	Example	: ./reset_docker.sh
+	Syntax	: ./docker_factory_reset
+	Example	: ./docker_factory_reset
