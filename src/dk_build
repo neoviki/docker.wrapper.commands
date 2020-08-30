@@ -1,19 +1,19 @@
 echo
 if [ -z $1 ]; then
-    echo "[ usage ] docker_build <docker_file_name> <docker_image_name>"
+    echo "[ usage ] dk_build <docker_file_name> <docker_image_name.diso>"
     echo
     exit 1
 fi
 
 if [ -z $2 ]; then
-    echo "[ usage ] docker_build <docker_file_name> <docker_image_name>"
+    echo "[ usage ] dk_build <docker_file_name> <docker_image_name.diso>"
     echo
     exit 1
 fi
 
 DOCKER_FILE="$1"
 DOCKER_IMAGE="$2"
-DOCKER_IMAGE_FILE="${DOCKER_IMAGE}.diso"
+DOCKER_IMAGE_FILE="${DOCKER_IMAGE}"
 
 docker image rm  $DOCKER_IMAGE
 echo "[ status ] Building Custom Docker Image from ( $DOCKER_FILE )"
