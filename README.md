@@ -41,9 +41,22 @@
 	Example	: ./docker_container_stop ubuntu_laptop1
 	Example	: ./docker_container_stop ubuntu_laptop2
 
-## reset_docker.sh
+## docker_factory_reset
 
 	Clear/Delete all images, containers and volumes
 
 	Syntax	: ./docker_factory_reset
 	Example	: ./docker_factory_reset
+
+## docker_delete_all_containers
+
+	Delete all containers ( including running containers )
+
+	Syntax  : ./docker_delete_all_containers
+
+## docker_delete_all_images
+	
+	Delete all containers ( including running images )
+
+	Syntax  : ./docker_delete_all_images
+
