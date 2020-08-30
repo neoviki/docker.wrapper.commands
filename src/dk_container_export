@@ -1,0 +1,25 @@
+echo
+if [ -z $1 ]; then
+    echo "[ usage ] dk_container_export <container_name>"
+    echo
+    exit 1
+fi
+
+CONTAINER_NAME="$1"
+TAR_IMAGE_NAME="${CONTAINER_NAME}.tar"
+
+rm -rf $TAR_IMAGE_NAME
+
+docker export $CONTAINER_NAME > $TAR_IMAGE_NAME
+
+if [ $? -eq 0 ]; then
+    echo "[ success ] docker container exported successfully ( Output File : $TAR_IMAGE_NAME )"
+	echo
+    exit 0
+else
+    echo "[ error ] unable to export container ( container_name = $CONTAINER_NAME )"
+	echo
+    exit 1
+fi
+
+
