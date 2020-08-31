@@ -4,6 +4,7 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_build"
 else
     echo "[ failure ] dk_build"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
@@ -14,6 +15,7 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_container_create"
 else
     echo "[ failure ] dk_container_create"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
@@ -24,6 +26,7 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_container_start"
 else
     echo "[ failure ] dk_container_start"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
@@ -34,6 +37,7 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_container_stop"
 else
     echo "[ failure ] dk_container_stop"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
@@ -44,6 +48,7 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_container_export"
 else
     echo "[ failure ] dk_container_export"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
@@ -54,6 +59,7 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_container_import"
 else
     echo "[ failure ] dk_container_import"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
@@ -64,6 +70,7 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_container_start"
 else
     echo "[ failure ] dk_container_start"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
@@ -74,8 +81,10 @@ if [ $? -eq 0 ]; then
     echo "[ success ] dk_container_stop"
 else
     echo "[ failure ] dk_container_stop"
+    rm *.dova; rm *.diso
 	exit 1
 fi
 
+rm *.dova; rm *.diso
 
 

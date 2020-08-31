@@ -30,6 +30,7 @@ fi
 
 if [[ -z "$IMAGE_NAME" ]]; then
     echo "[ error ] Invalid Docker Image Name ($IMAGE_NAME)"
+    rm -rf $TAR_IMAGE_NAME
     exit 1
 fi
 
