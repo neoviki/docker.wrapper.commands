@@ -17,6 +17,14 @@ DOCKER_ISO="$2"
 DOCKER_IMAGE=`echo $DOCKER_ISO | awk -F. '{print $1}'`
 TAR_IMAGE_NAME="${DOCKER_IMAGE}.tar"
 
+DISO_SET=`echo $DOCKER_ISO | awk -F. '{print $2}'`
+
+if [ -z $DISO_SET ]; then
+    echo "[ error ] specify docker image name with (.diso) extension" 
+    exit 1
+fi
+
+
 if [ ! -f "$DOCKER_FILE" ]; then
     echo "[ error ] Dockerfile Missing ( $DOCKER_FILE )"
     exit 1
@@ -26,7 +34,21 @@ fi
 docker image rm  $DOCKER_IMAGE
 echo "[ status ] Building Custom Docker Image from ( $DOCKER_FILE )"
 docker build - < $DOCKER_FILE  -t $DOCKER_IMAGE
+
+if [ $? -ne 0 ]; then
+    echo "[ error ] docker build failed"
+    exit 1
+fi
+
+
 docker save -o $TAR_IMAGE_NAME $DOCKER_IMAGE
+
+if [ $? -ne 0 ]; then
+    echo "[ error ] docker save failed"
+    exit 1
+fi
+
+
 docker image rm  $DOCKER_IMAGE
 mv $TAR_IMAGE_NAME $DOCKER_ISO
 

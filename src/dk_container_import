@@ -18,6 +18,14 @@ IMAGE_NAME="image_${CONTAINER_NAME}"
 APPLIANCE_PREFIX=`echo $APPLIANCE_NAME | awk -F. '{print $1}'`
 APPLIANCE_TAR="${APPLIANCE_PREFIX}.tar"
 
+DOVA_SET=`echo $APPLIANCE_NAME | awk -F. '{print $2}'`
+
+if [ -z $DOVA_SET ]; then
+    echo "[ error ] specify docker appliance name with (.dova) extension" 
+    exit 1
+fi
+
+
 
 if [ ! -f "$APPLIANCE_NAME" ]; then
     echo "[ error ] Docker Container Appliance Missing ($APPLIANCE_NAME)"

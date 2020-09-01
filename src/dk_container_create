@@ -16,6 +16,22 @@ CONTAINER_NAME="$2"
 IMAGE_NAME=`echo $DOCKER_ISO_NAME | awk -F. '{print $1}'`
 TAR_IMAGE_NAME="${IMAGE_NAME}.tar"
 
+DISO_SET=`echo $DOCKER_ISO_NAME | awk -F. '{print $2}'`
+
+if [ -z $DISO_SET ]; then
+    echo "[ error ] specify docker image name with (.diso) extension" 
+    exit 1
+fi
+
+
+
+if [ -z $DISO_SET ]; then
+    echo "[ error ] specify docker image name with (.diso) extension" 
+    exit 1
+fi
+
+
+
 if [ ! -f "$DOCKER_ISO_NAME" ]; then
     echo "[ error ] Docker ISO Image File Missing ( $DOCKER_ISO_NAME )"
     exit 1
@@ -45,18 +61,21 @@ docker image rm  $IMAGE_NAME &> /dev/null
 echo "[ status ] Load Docker Image ( $DOCKER_ISO_NAME  ) ( $TAR_IMAGE_NAME )"
 docker load -i $TAR_IMAGE_NAME
 
+if [ $? -ne 0 ]; then
+    echo "[ error ] Docker Load"
+    exit 1
+fi
+
 echo
 docker create -t -i -v ~/docker_share:/home/share --name $CONTAINER_NAME $IMAGE_NAME bash
 
-
-if [ $? -eq 0 ]; then
-    echo "[ success ] docker container created successfully ( container_name = $CONTAINER_NAME )"
-    rm -rf $TAR_IMAGE_NAME
-    exit 0
-else
+if [ $? -ne 0 ]; then
     echo "[ error ] unable to create docker container ( container_name = $CONTAINER_NAME )"
     rm -rf $TAR_IMAGE_NAME
     exit 1
 fi
+
+echo "[ success ] docker container created successfully ( container_name = $CONTAINER_NAME )"
+rm -rf $TAR_IMAGE_NAME
 
 

@@ -16,19 +16,34 @@ CONTAINER_NAME="$1"
 DOCKER_OVA_FILE_NAME="$2"
 TAR_IMAGE_NAME="${DOCKER_OVA_FILE_NAME}.tar"
 
+DOVA_SET=`echo $DOCKER_OVA_FILE_NAME | awk -F. '{print $2}'`
+
+if [ -z $DOVA_SET ]; then
+    echo "[ error ] specify docker appliance name with (.dova) extension" 
+    exit 1
+fi
+
+
+
 rm -rf $TAR_IMAGE_NAME
 
 docker export $CONTAINER_NAME > $TAR_IMAGE_NAME
+
+if [ $? -ne 0 ]; then
+    echo "[ error ] docker export"
+	echo
+    exit 1
+fi
+
+
 mv $TAR_IMAGE_NAME $DOCKER_OVA_FILE_NAME
 
-if [ $? -eq 0 ]; then
-    echo "[ success ] docker container exported successfully ( Output File : $DOCKER_OVA_FILE_NAME )"
-	echo
-    exit 0
-else
+if [ $? -ne 0 ]; then
     echo "[ error ] unable to export container ( container_name = $CONTAINER_NAME )"
 	echo
     exit 1
 fi
 
 
+echo "[ success ] docker container exported successfully ( Output File : $DOCKER_OVA_FILE_NAME )"
+echo
