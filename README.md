@@ -1,88 +1,184 @@
-## Ubuntu Docker
+# Docker Wrapper Commands
 
-1. Download this repo
-2. cd src
+A set of wrapper scripts for Docker to simplify frequent operations and enable advanced features like exporting and importing Docker images and containers, similar to ISO/OVA files used in virtual machines.
 
-## Dockerfile 
+---
 
-	This file contains essential instructions to build and create a docker image ( docker image is like a custom ubuntu iso file )
+## Installation
 
+1. Clone this repository:
 
-## dk_build [ Docker Image ]
+   ```bash
+   git clone <repo-url>
+   cd <repo-directory>
+   ```
+2. Make the installer executable:
 
-	This script build the src/Dockerfile and creates a docker image ( It is like an ubuntu.iso file )
+   ```bash
+   chmod +x install.sh
+   ```
+3. Run the installer:
 
-	Syntax	: ./dk_build <docker_file_name> <docker_image_name.diso>
-	Example	: ./dk_build Dockerfile ubuntu_image.diso
+   ```bash
+   ./install.sh
+   ```
 
-	[ .diso ] : Docker ISO image
+---
 
-## dk_container_create
-	
-	This script creates a container using the docker image we created on the prev step [ Docker container is like a virtual machine with os installed ]
+## Dockerfile
 
-	Syntax	: ./dk_container_create < docker_image.diso> <container_name>
-	Example	: ./dk_container_create ubuntu_image.diso ubuntu_laptop1
-	Example	: ./dk_container_create ubuntu_image.diso ubuntu_laptop2
+This file defines instructions to build a custom Ubuntu 16.04 Docker image. It behaves like a minimal, portable Ubuntu ISO.
 
-	[ .diso ] : Docker ISO image
+---
 
-## dk_container_start
+## Wrapper Commands
 
-	Start a docker container ( like turning on a virtual machine and running an operating system ) 
+### `dkr.build` – Build Docker Image (like an ISO)
 
-	Syntax	: ./dk_container_start < container name>
-	Example	: ./dk_container_start ubuntu_laptop1
-	Example	: ./dk_container_start ubuntu_laptop2
+Builds a Docker image from a specified Dockerfile.
 
+**Syntax:**
 
-## dk_container_stop
-	
-	Stop a docker container ( like turning off a virtual machine / shutting down an operating system ) 
+```bash
+dkr.build <dockerfile> <image.name.diso>
+```
 
-	Syntax	: ./dk_container_stop < container name>
-	Example	: ./dk_container_stop ubuntu_laptop1
-	Example	: ./dk_container_stop ubuntu_laptop2
+**Example:**
 
-## dk_container_export
+```bash
+dkr.build Dockerfile ubuntu.image.diso
+```
 
-	Export a docker container ( like exporting virtual machine appliance to an .ova file)
+> `.diso` = Docker ISO (custom image format)
 
-	Syntax	: ./dk_container_export <container_name> <output_file.dova>
-	Example	: ./dk_container_export ubuntu_container ubuntu.dova
+---
 
-	[ .dova ] : Docker OVA File
-	
+### `dkr.container.create` – Create Docker Container
 
-## dk_container_import
+Creates a container from a `.diso` image (acts like a virtual machine).
 
-	Importa a docker container appliance -> .dova file ( like exporting virtual machine appliance to an .ova file)
+**Syntax:**
 
-	Syntax	: ./dk_container_import <container_appliance.dova> <container_name>
-	Example	: ./dk_container_import ubuntu.dova ubuntu_container
+```bash
+dkr.container.create <image.diso> <container.name>
+```
 
-	[ .dova ] : Docker OVA File
-	
-	Note: 
+**Example:**
 
-	Again start container using dk_container_start
+```bash
+dkr.container.create ubuntu.image.diso ubuntu.laptop1
+dkr.container.create ubuntu.image.diso ubuntu.laptop2
+```
 
-## dk_factory_reset
+---
 
-	Clear/Delete all images, containers and volumes
+### `dkr.container.start` – Start Container
 
-	Syntax	: ./dk_factory_reset
-	Example	: ./dk_factory_reset
+Starts a Docker container (like booting a VM).
 
-## dk_delete_all_containers
+**Syntax:**
 
-	Delete all containers ( including running containers )
+```bash
+dkr.container.start <container.name>
+```
 
-	Syntax  : ./dk_delete_all_containers
+**Example:**
 
-## dk_delete_all_images
-	
-	Delete all containers ( including running images )
+```bash
+dkr.container.start ubuntu.laptop1
+```
 
-	Syntax  : ./dk_delete_all_images
+---
+
+### `dkr.container.stop` – Stop Container
+
+Stops a Docker container (like shutting down a VM).
+
+**Syntax:**
+
+```bash
+dkr.container.stop <container.name>
+```
+
+**Example:**
+
+```bash
+dkr.container.stop ubuntu.laptop1
+```
+
+---
+
+### `dkr.container.export` – Export Container
+
+Exports a Docker container to a `.dova` file (similar to exporting a VM to an OVA).
+
+**Syntax:**
+
+```bash
+dkr.container.export <container.name> <output.dova>
+```
+
+**Example:**
+
+```bash
+dkr.container.export ubuntu.container ubuntu.dova
+```
+
+> `.dova` = Docker OVA (container appliance format)
+
+---
+
+### `dkr.container.import` – Import Container
+
+Imports a `.dova` file to recreate a Docker container.
+
+**Syntax:**
+
+```bash
+dkr.container.import <file.dova> <container.name>
+```
+
+**Example:**
+
+```bash
+dkr.container.import ubuntu.dova ubuntu.container
+```
+
+> After import, use `dkr.container.start` to run the container.
+
+---
+
+### `dkr.factory.reset` – Factory Reset
+
+Removes all Docker containers, images, and volumes.
+
+**Syntax:**
+
+```bash
+dkr.factory.reset
+```
+
+---
+
+### `dkr.delete.all.containers` – Delete All Containers
+
+Deletes all Docker containers, including running ones.
+
+**Syntax:**
+
+```bash
+dkr.delete.all.containers
+```
+
+---
+
+### `dkr.delete.all.images` – Delete All Images
+
+Deletes all Docker images.
+
+**Syntax:**
+
+```bash
+dkr.delete.all.images
+```
 

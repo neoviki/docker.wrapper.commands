@@ -1,86 +1,86 @@
-../src/dk_build ../src/Dockerfile ubuntu_image.diso
+../src/dk.build ../src/Dockerfile ubuntu.image.diso
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_build"
+    echo "[ success ] dk.build"
 else
-    echo "[ failure ] dk_build"
+    echo "[ failure ] dk.build"
     rm *.dova; rm *.diso
 	exit 1
 fi
 
 
-../src/dk_container_create ubuntu_image.diso ubuntu_container
+../src/dk.container.create ubuntu.image.diso ubuntu.container
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_container_create"
+    echo "[ success ] dk.container.create"
 else
-    echo "[ failure ] dk_container_create"
+    echo "[ failure ] dk.container.create"
     rm *.dova; rm *.diso
 	exit 1
 fi
 
 
-../src/dk_container_start ubuntu_container
+../src/dk.container.start ubuntu.container
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_container_start"
+    echo "[ success ] dk.container.start"
 else
-    echo "[ failure ] dk_container_start"
+    echo "[ failure ] dk.container.start"
     rm *.dova; rm *.diso
 	exit 1
 fi
 
 
-../src/dk_container_stop ubuntu_container
+../src/dk.container.stop ubuntu.container
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_container_stop"
+    echo "[ success ] dk.container.stop"
 else
-    echo "[ failure ] dk_container_stop"
+    echo "[ failure ] dk.container.stop"
     rm *.dova; rm *.diso
 	exit 1
 fi
 
 
-../src/dk_container_export ubuntu_container ubuntu_appliance.dova
+../src/dk.container.export ubuntu.container ubuntu.appliance.dova
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_container_export"
+    echo "[ success ] dk.container.export"
 else
-    echo "[ failure ] dk_container_export"
+    echo "[ failure ] dk.container.export"
     rm *.dova; rm *.diso
 	exit 1
 fi
 
 
-../src/dk_container_import ubuntu_appliance.dova ubuntu_container_b
+../src/dk.container.import ubuntu.appliance.dova ubuntu.container.b
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_container_import"
+    echo "[ success ] dk.container.import"
 else
-    echo "[ failure ] dk_container_import"
+    echo "[ failure ] dk.container.import"
     rm *.dova; rm *.diso
 	exit 1
 fi
 
 
-../src/dk_container_start ubuntu_container_b
+../src/dk.container.start ubuntu.container.b
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_container_start"
+    echo "[ success ] dk.container.start"
 else
-    echo "[ failure ] dk_container_start"
+    echo "[ failure ] dk.container.start"
     rm *.dova; rm *.diso
 	exit 1
 fi
 
 
-../src/dk_container_stop ubuntu_container_b
+../src/dk.container.stop ubuntu.container.b
 
 if [ $? -eq 0 ]; then
-    echo "[ success ] dk_container_stop"
+    echo "[ success ] dk.container.stop"
 else
-    echo "[ failure ] dk_container_stop"
+    echo "[ failure ] dk.container.stop"
     rm *.dova; rm *.diso
 	exit 1
 fi

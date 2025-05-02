@@ -75,6 +75,8 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+touch $CONTAINER_NAME 
+
 echo "[ success ] docker container created successfully ( container_name = $CONTAINER_NAME )"
 rm -rf $TAR_IMAGE_NAME
 
