@@ -66,8 +66,8 @@ dkr.container.create <image.diso> <container.name>
 **Example:**
 
 ```bash
-dkr.container.create ubuntu.image.diso ubuntu.laptop1
-dkr.container.create ubuntu.image.diso ubuntu.laptop2
+dkr.container.create ubuntu.image.diso ubuntu.machine1
+dkr.container.create ubuntu.image.diso ubuntu.machine2
 ```
 
 ---
@@ -85,7 +85,7 @@ dkr.container.start <container.name>
 **Example:**
 
 ```bash
-dkr.container.start ubuntu.laptop1
+dkr.container.start ubuntu.machine1
 ```
 
 ---
@@ -103,7 +103,7 @@ dkr.container.stop <container.name>
 **Example:**
 
 ```bash
-dkr.container.stop ubuntu.laptop1
+dkr.container.stop ubuntu.machine1
 ```
 
 ---
