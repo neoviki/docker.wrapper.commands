@@ -9,8 +9,8 @@ A set of wrapper scripts for Docker to simplify frequent operations and enable a
 1. Clone this repository:
 
    ```bash
-   git clone <repo-url>
-   cd <repo-directory>
+   git clone https://github.com/neoviki/docker.wrapper.commands.git
+   cd docker.wrapper.commands
    ```
 2. Make the installer executable:
 
